@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../common/shared/shared.module';
 import { NgForm } from '@angular/forms';
+import { AuthService } from './services/auth.service';
+import { LoginModel } from './models/login.model';
 import { ToastrService } from 'ngx-toastr';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,24 +15,25 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoginComponent {
   constructor(
-private _toaster:ToastrService,
-private _spinner: NgxSpinnerService
-
+    private _auth:AuthService,
+    private _toastr:ToastrService,
+    private _router:Router
   ){
-this._toaster.success("test");
-
-this._spinner.show();
-
-  setTimeout(()=>{
-    this._spinner.hide();
-  },5000);
-
   }
-
 
   login(form:NgForm){
     if(form.valid)
     {
+      let model=new LoginModel();
+      model.email=form.controls["email"].value;
+      model.password=form.controls["password"].value;
+
+      this._auth.login(model,res=>{
+        this._toastr.success("Login is success");
+        localStorage.setItem("token",res.token);
+        localStorage.setItem("user",JSON.stringify(res.user));
+        this._router.navigateByUrl("/");
+      })
       console.log(form.value);
     }
   }
