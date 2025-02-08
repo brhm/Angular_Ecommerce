@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class GenericHttpService {
 
 
   constructor(
-    private _http:HttpClient
+    private _http:HttpClient,
+    private _toastr:ToastrService
   ) { }
 
 
@@ -19,6 +21,7 @@ export class GenericHttpService {
       next:(res:T)=>callBack(res),
       error:(err:HttpErrorResponse)=>{
         console.log(err);
+        this._toastr.error(err.error.message);
       }
     });
   }
@@ -29,6 +32,7 @@ export class GenericHttpService {
       next:(res:T)=>callBack(res),
       error:(err:HttpErrorResponse)=>{
         console.log(err);
+        this._toastr.error(err.error.message);
       }
     });
   }
