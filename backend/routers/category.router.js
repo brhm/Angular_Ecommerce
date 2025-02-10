@@ -10,7 +10,7 @@ router.post("/add",async(req,res)=>{
         const checkCategoryName=await Category.findOne({name:name});
         if(checkCategoryName!=null)
         {
-            res.status(403).json({message:"Category name has been added before."});
+            res.status(403).json({message:"This category name already exists."});
 
         }else{
 
@@ -44,10 +44,19 @@ router.post("/update", async (req,res)=>{
     try{
         const {_id,name}=req.body;
         const category= await Category.findOne({_id:_id});
-        category.name=name;
 
-        await Category.findByIdAndUpdate(_id,category);
-        res.json({message:"Category has been updated succesfully"});
+        if(category.name!=name)
+        {
+            checkCategoryName=await Category.findOne({name:name});
+            if(checkCategoryName!=null)
+            {
+                res.status(403).json({message:"This category name already exists."})
+            }else{
+                category.name=name;
+                await Category.findByIdAndUpdate(_id,category);
+                res.json({message:"Category has been updated succesfully"});
+            }
+        }
 
     }catch(error){
         res.status(500).json({message:error.message});
