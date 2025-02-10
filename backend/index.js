@@ -12,7 +12,7 @@ const categoryRouter=require("./routers/category.router");
 
 
 app.use("/api/auth",authRouter);
-app.use("/api/category",categoryRouter);
+app.use("/api/categories",categoryRouter);
 
 connection();
 

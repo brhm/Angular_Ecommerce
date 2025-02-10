@@ -1,19 +1,27 @@
 const express=require("express");
-const router=express.Router;
+const router=express.Router();
 const Category=require("../models/category");
 const {v4:uuidv4}=require("uuid");
 
 router.post("/add",async(req,res)=>{
     try{
         const {name}=req.body;
-        const category=new Category({
-            _id:uuidv4(),
-            name:name
-        });
 
-        await category.save();
-        res.json({message:"Category has been added succesfully"});
+        const checkCategoryName=await Category.findOne({name:name});
+        if(checkCategoryName!=null)
+        {
+            res.status(403).json({message:"Category name has been added before."});
 
+        }else{
+
+            const category=new Category({
+                _id:uuidv4(),
+                name:name
+            });
+
+            await category.save();
+            res.json({message:"Category has been added succesfully"});
+        }
     }catch(error){
         res.status(500).json({message:error.message});
     }
@@ -46,7 +54,7 @@ router.post("/update", async (req,res)=>{
     }
 })
 
-router.post("/getall", async (req,res)=>{
+router.get("/", async (req,res)=>{
     try{
 
         const categories= await Category.find().sort({name:1});
