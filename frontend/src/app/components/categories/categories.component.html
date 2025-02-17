@@ -21,7 +21,7 @@
                 <i class="fa fa-plus"></i>
             </button>
             <div class="col-md-4 " style="float: right;">
-                <input type="search" class="form-control" placeholder="Search ">
+                <input type="search" [(ngModel)]="search" class="form-control" placeholder="Search ">
             </div>
     </div>
         <div class="form-control mt-2">
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let category of categories let index=index">
+                    <tr *ngFor="let category of categories | categoryPipe: search let index=index">
                         <td>{{index+1}}</td>
                         <td>{{category.name}}</td>
                         <td>
