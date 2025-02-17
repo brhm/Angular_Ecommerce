@@ -4,6 +4,7 @@ import { CategoryModel } from './models/category.model';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './services/category.service';
 import { NgForm } from '@angular/forms';
+import { SwalService } from '../../common/services/swal.service';
 
 @Component({
   selector: 'app-categories',
@@ -17,7 +18,8 @@ export class CategoriesComponent {
   updateCategory:CategoryModel=new CategoryModel();
   constructor(
     private _toastr:ToastrService,
-    private _category:CategoryService
+    private _category:CategoryService,
+    private _swal:SwalService
 
   ){}
 
@@ -53,5 +55,14 @@ export class CategoriesComponent {
         element?.click();
       })
     }
+  }
+
+  removeById(model:CategoryModel){
+    this._swal.callSwal(`Do you want to delete ${model.name} category?`,"","Delete",()=>{
+      this._category.removeById(model._id,res=>{
+        this._toastr.info(res.message);
+        this.getAll()
+      })
+    });
   }
 }

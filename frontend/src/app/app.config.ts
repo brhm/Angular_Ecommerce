@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
           CommonModule,
           BrowserAnimationsModule,
           NgxSpinnerModule,
+          SweetAlert2Module,
           ToastrModule.forRoot({
             closeButton:true,
             progressBar:true
