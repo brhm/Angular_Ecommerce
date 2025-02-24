@@ -97,4 +97,45 @@ router.post("/getById",async(res,req)=>{
     });
 });
 
+// Product Update
+router.post("/update",upload.array(images), async(req,res)=>{
+    response(res, async()=>{
+        const {_id,name,stock,price,categories}=req.body;
 
+        let product= await Product.findById(_id);
+        for(const image of product.imageUrls)
+        {
+            fs.unlink(image.path,()=>{});
+        }
+
+        let imageUrls;
+        imageUrls= [ ...product.imageUrls,...req.files]
+        product={
+            name:name.toUppperCase(),
+            stock:stock,
+            price:price,
+            imageUrls:imageUrls,
+            categories:categories
+        };
+        await Product.findByIdAndUpdate(_id,product);
+        res.json({message:"Product has been updated."});
+    })
+})
+
+// Remove Product images
+router.post("/removeImageByProductIdAndIndex", async(req,res)=>{
+    response(res,async()=>{
+        const {_id, index}=req.body;
+
+        let product = await Product.findById(_id);
+        if(product.imageUrls.length==1){
+            res.status(500).json({message:"You can never delete the last product image."})
+        }else{
+            let image=product.imageUrls[index];
+            product.imageUrls.splice(index,1);
+            await Product.findByIdAndUpdate(_id,product);
+            fs.unlink(image.path,()=>{});
+            res.json({message:"The image was successfully removed."})
+        }
+    })
+})
