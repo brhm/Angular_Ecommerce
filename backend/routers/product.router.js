@@ -137,5 +137,7 @@ router.post("/removeImageByProductIdAndIndex", async(req,res)=>{
             fs.unlink(image.path,()=>{});
             res.json({message:"The image was successfully removed."})
         }
-    })
-})
+    });
+});
+
+module.exports=router;
