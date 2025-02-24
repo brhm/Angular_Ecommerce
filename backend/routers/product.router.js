@@ -122,6 +122,19 @@ router.post("/update",upload.array(images), async(req,res)=>{
     })
 })
 
+// Change Product Active Status
+router.post("/changeActiveStatus", async(req,res)=>{
+    response(res, async()=>{
+        const {_id}=req.body;
+
+        let product= await Product.findById(_id);
+        product.isActive=!product.isActive;
+        await Product.findByIdAndUpdate(_id,product);
+        res.json({message:"Product Status has been changed."});
+    })
+})
+
+
 // Remove Product images
 router.post("/removeImageByProductIdAndIndex", async(req,res)=>{
     response(res,async()=>{
