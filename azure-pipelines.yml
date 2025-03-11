@@ -7,16 +7,44 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
+
+variables:
+  node_version: '20.x'  # İstersen 16.x de kullanabilirsin
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
+# 1. Node.js kurulumu
+- task: UseNode@1
+  inputs:
+    version: $(node_version)
+
+# 2. 📦 Backend: npm install
+- task: Npm@1
+  displayName: 'Install backend dependencies'
+  inputs:
+    command: 'install'
+    workingDir: 'backend'
+
+# 3. 🛠️ Backend: Build (eğer build işlemi varsa)
+- task: Npm@1
+  displayName: 'Build backend'
+  inputs:
+    command: 'custom'
+    workingDir: 'backend'
+    customCommand: 'run build'  # Eğer build script'in yoksa bu adımı atlayabilirsin
+
+# 4. 📦 Frontend: npm install
+- task: Npm@1
+  displayName: 'Install frontend dependencies'
+  inputs:
+    command: 'install'
+    workingDir: 'frontend'
+
+# 5. 🧱 Frontend: Angular build
+- task: Npm@1
+  displayName: 'Build Angular frontend'
+  inputs:
+    command: 'custom'
+    workingDir: 'frontend'
+    customCommand: 'run build -- --configuration=production'
