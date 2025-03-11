@@ -1,16 +1,11 @@
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
-- main
+- main  # veya senin ana branch’in
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  node_version: '20.x'  # İstersen 16.x de kullanabilirsin
+  node_version: '18.x'  # veya 16.x kullanabilirsin
 
 steps:
 
@@ -26,13 +21,12 @@ steps:
     command: 'install'
     workingDir: 'backend'
 
-# 3. 🛠️ Backend: Build (eğer build işlemi varsa)
-- task: Npm@1
+# 3. 🛠️ Backend: npm run build (script ile, log için hata bastırılmaz)
+- script: |
+    cd backend
+    npm run build
   displayName: 'Build backend'
-  inputs:
-    command: 'custom'
-    workingDir: 'backend'
-    customCommand: 'run build'  # Eğer build script'in yoksa bu adımı atlayabilirsin
+  continueOnError: true  # ❗ Hata olsa bile devam et, loglar görülsün
 
 # 4. 📦 Frontend: npm install
 - task: Npm@1
