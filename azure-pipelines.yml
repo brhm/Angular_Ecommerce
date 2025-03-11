@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  node_version: '18.x'  # İstersen 16.x de kullanabilirsin
+  node_version: '20.x'  # İstersen 16.x de kullanabilirsin
 
 steps:
 
@@ -32,7 +32,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'backend'
-    customCommand: 'run build | true'  # Eğer build script'in yoksa bu adımı atlayabilirsin
+    customCommand: 'run build || true'  # Eğer build script'in yoksa bu adımı atlayabilirsin
 
 # 4. 📦 Frontend: npm install
 - task: Npm@1
