@@ -8,8 +8,7 @@
     "uuid": "^11.0.5"
   },
   "scripts": {
-    "start": "nodemon index.js",
-    "build": "tsc"
+    "start": "nodemon index.js"
   },
   "devDependencies": {
     "typescript": "^5.8.2"

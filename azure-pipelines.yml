@@ -1,41 +1,32 @@
 trigger:
-- main  # veya senin ana branch’in
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  node_version: '18.x'  # veya 16.x kullanabilirsin
+  node_version: '20.x'
 
 steps:
-
-# 1. Node.js kurulumu
 - task: UseNode@1
   inputs:
     version: $(node_version)
 
-# 2. 📦 Backend: npm install
+# Backend install
 - task: Npm@1
   displayName: 'Install backend dependencies'
   inputs:
     command: 'install'
     workingDir: 'backend'
 
-# 3. 🛠️ Backend: npm run build (script ile, log için hata bastırılmaz)
-- script: |
-    cd backend
-    npm run build
-  displayName: 'Build backend'
-  continueOnError: "true"  # ❗ Hata olsa bile devam et, loglar görülsün
-
-# 4. 📦 Frontend: npm install
+# Frontend install
 - task: Npm@1
   displayName: 'Install frontend dependencies'
   inputs:
     command: 'install'
     workingDir: 'frontend'
 
-# 5. 🧱 Frontend: Angular build
+# Frontend build (Angular)
 - task: Npm@1
   displayName: 'Build Angular frontend'
   inputs:
