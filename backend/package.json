@@ -9,6 +9,9 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-     "build": "tsc"
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
   }
 }
