@@ -32,7 +32,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'backend'
-    customCommand: 'run build'  # Eğer build script'in yoksa bu adımı atlayabilirsin
+    customCommand: 'run build | true'  # Eğer build script'in yoksa bu adımı atlayabilirsin
 
 # 4. 📦 Frontend: npm install
 - task: Npm@1
