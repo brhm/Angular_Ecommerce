@@ -26,7 +26,7 @@ steps:
     cd backend
     npm run build
   displayName: 'Build backend'
-  continueOnError: true  # ❗ Hata olsa bile devam et, loglar görülsün
+  continueOnError: "true"  # ❗ Hata olsa bile devam et, loglar görülsün
 
 # 4. 📦 Frontend: npm install
 - task: Npm@1
