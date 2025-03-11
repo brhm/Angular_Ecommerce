@@ -58,10 +58,9 @@ router.post("/",async(req,res)=>{
             $or:[
                 {
                     name: { $regex:search, $options:'i' }
-
                 }
             ]
-        }).count();
+        }).countDocuments();
 
     let products = await Product.find({
             $or:[
