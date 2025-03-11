@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  node_version: '20.x'  # İstersen 16.x de kullanabilirsin
+  node_version: '18.x'  # İstersen 16.x de kullanabilirsin
 
 steps:
 
