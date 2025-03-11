@@ -8,6 +8,7 @@
     "uuid": "^11.0.5"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+     "build": "tsc"
   }
 }
