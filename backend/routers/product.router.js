@@ -11,11 +11,11 @@ router.post("/add",upload.array("images"),async(req,res)=>{
 
     response(res, async ()=>{
         const {name,stock,price,categories}=req.body;
-
+        //console.log(req.body);
         const productId=uuidv4();
         let product=new Product({
             _id:productId,
-            name:name.toUppperCase(),
+            name:name.toUpperCase(),
             stock:stock,
             price:price,
             categories:categories,

@@ -1,7 +1,7 @@
 <app-blank title="Products" sectionTitle="Product List">
 <!--Buttons Add and Search-->
 <div class="form-group">
-    <button class="btn btn-outline-primary" routerLink="/"><i class="fa fa-plus" ></i></button>
+    <button class="btn btn-outline-primary" routerLink="/products/add"><i class="fa fa-plus" ></i></button>
     <div class="col-md-3" style="float: right;">
         <input class="form-control" type="search" [(ngModel)]="request.search" placeholder="search value"
             (keyup)="search()" (search)="getAll(1)"
