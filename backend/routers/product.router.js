@@ -89,7 +89,8 @@ router.post("/", async (req, res) => {
 });
 
 // Get Product by id
-router.post("/getById", async (res, req) => {
+router.post("/getById", async (req, res) => {
+
     response(res, async () => {
         const { _id } = req.body;
         let product = await Product.findById(_id);
@@ -103,14 +104,14 @@ router.post("/update", upload.array("images"), async (req, res) => {
         const { _id, name, stock, price, categories } = req.body;
 
         let product = await Product.findById(_id);
-        for (const image of product.imageUrls) {
-            fs.unlink(image.path, () => { });
-        }
+        //for (const image of product.imageUrls) {
+        //    fs.unlink(image.path, () => { });
+        //}
 
         let imageUrls;
         imageUrls = [...product.imageUrls, ...req.files]
         product = {
-            name: name.toUppperCase(),
+            name: name.toUpperCase(),
             stock: stock,
             price: price,
             imageUrls: imageUrls,

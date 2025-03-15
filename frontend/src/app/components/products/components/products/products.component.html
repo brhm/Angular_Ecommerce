@@ -49,7 +49,7 @@
                 </div>
             </td>
             <td>
-                <button class="btn btn-outline-warning btn-sm" title="Update">
+                <button routerLink="/products/update/{{product._id}}" class="btn btn-outline-warning btn-sm" title="Update">
                     <i class="fa fa-edit"></i></button>
                 <button (click)="removeById(product._id)"
                     class="btn btn-outline-danger btn-sm mx-1" title="Delete">
