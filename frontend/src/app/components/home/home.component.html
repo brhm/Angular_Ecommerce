@@ -1,3 +1,57 @@
 <app-blank title="Home" sectionTitle="Products">
+    <div class="row">
+        <div class="col-md-3 categoriesFrame">
+            <ul>
+                <li (click)="changeCategory('All')"
+                    [ngClass]="request.categoryName=='All'?'active':''">All</li>
+                <li (click)="changeCategory(category.name)"
+                    [ngClass]="request.categoryName==category.name?'active':''"
+                    *ngFor="let category of categories"
+                    >
+                    {{category.name}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-7">
+                        <label>Search</label>
+                        <input [(ngModel)]="request.search" type="search" class="form-control"
+                            placeholder="Search value" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Sort By:</label>
+                        <select [(ngModel)]="request.priceFilter" class="form-control" name="order" id>
+                            <option value="0">Select Option...</option>
+                            <option value="1">Minimun Price</option>
+                            <option value="2">Maximum Price</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Progress</label>
+                        <br>
+                        <button class="btn btn-outline-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-header ">
+                            <h1></h1>
+                        </div>
+                        <div class="card-body">
+                            <img src="" alt="" width="200" height="160"/>
+                            <p><strong>Stock: 5</strong></p>
+                            <hr>
 
+                            <h4 class="alert alert-danger">Unit Price: 10.00</h4>
+                            <button class="btn btn-outline-success">Add Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </app-blank>
