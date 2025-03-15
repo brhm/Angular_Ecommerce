@@ -4,4 +4,5 @@ export class RequestModel{
     search:string="";
     priceFilter:string="0";
     categoryName:string="All";
+    categoryId:string="0";
 }

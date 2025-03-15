@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-3 categoriesFrame">
             <ul>
-                <li (click)="changeCategory('All')"
+                <li (click)="changeCategory('','All')"
                     [ngClass]="request.categoryName=='All'?'active':''">All</li>
-                <li (click)="changeCategory(category.name)"
+                <li (click)="changeCategory(category._id, category.name)"
                     [ngClass]="request.categoryName==category.name?'active':''"
                     *ngFor="let category of categories"
                     >
@@ -24,30 +24,30 @@
                         <label>Sort By:</label>
                         <select [(ngModel)]="request.priceFilter" class="form-control" name="order" id>
                             <option value="0">Select Option...</option>
-                            <option value="1">Minimun Price</option>
-                            <option value="2">Maximum Price</option>
+                            <option value="asc">Minimun Price</option>
+                            <option value="desc">Maximum Price</option>
                         </select>
                     </div>
                     <div class="col-md-2">
                         <label>Progress</label>
                         <br>
-                        <button class="btn btn-outline-primary">Search</button>
+                        <button (click)="getAll()" class="btn btn-outline-primary">Search</button>
                     </div>
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-md-4">
+                <div class="col-md-4" *ngFor="let product of products let i=index">
                     <div class="card text-center">
                         <div class="card-header ">
-                            <h1></h1>
+                            <h1>{{product.name}}</h1>
                         </div>
                         <div class="card-body">
-                            <img src="" alt="" width="200" height="160"/>
-                            <p><strong>Stock: 5</strong></p>
+                            <img [src]="'http://localhost:5000/'+ product.imageUrls[0].path" alt="product.name" width="200" height="160"/>
+                            <p><strong>Stock: {{product.stock}}</strong></p>
                             <hr>
 
-                            <h4 class="alert alert-danger">Unit Price: 10.00</h4>
-                            <button class="btn btn-outline-success">Add Cart</button>
+                            <h4 class="alert alert-danger">Unit Price: {{product.price}} €</h4>
+                            <button *ngIf="product.stock>0" class="btn btn-outline-success">Add Cart</button>
                         </div>
                     </div>
                 </div>
