@@ -3,6 +3,7 @@ const router = express.Router();
 const response = require("../services/response.service");
 const Basket = require("../models/basket");
 const Product = require("../models/product");
+const {v4:uuidv4}= require("uuid");
 
 router.post("/add", async (req, res) => {
     response(res, async () => {
@@ -60,6 +61,14 @@ router.post("/", async (req, res) => {
         res.json(baskets);
     });
 
+});
+
+router.post("/getCount", async(req, res)=>{
+    response(res, async()=>{
+        const {userId}=req.body;
+        const count=await Basket.find({userId:userId}).countDocuments();
+        res.json({count:count});
+    });
 });
 
 module.exports=router;
