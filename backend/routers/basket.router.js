@@ -38,6 +38,8 @@ router.post("/removeById", async (req, res) => {
 
         await Basket.findByIdAndDelete(_id);
 
+        res.json({message:"Product is removed from cart! "})
+
     });
 });
 
